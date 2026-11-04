@@ -3,27 +3,29 @@ yaml
 
 name: Build ItemEdit
 
-on:
+'on':
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Download source
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Install Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
           cache: maven
 
-      - name: Build JAR
+      - name: Build plugin
         run: mvn clean package
 
       - name: Upload JAR
